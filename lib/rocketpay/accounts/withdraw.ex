@@ -1,4 +1,4 @@
-defmodule Rocketpay.Accounts.Deposit do
+defmodule Rocketpay.Accounts.Withdraw do
   alias Ecto.Multi
   alias Rocketpay.{Account, Repo}
 
@@ -30,8 +30,8 @@ defmodule Rocketpay.Accounts.Deposit do
     |> handle_cast(balance)
   end
 
-  defp handle_cast({:ok, value}, balance), do: Decimal.add(balance, value)
-  defp handle_cast(:error, _balance), do: {:error, "Invalid deposit value!"}
+  defp handle_cast({:ok, value}, balance), do: Decimal.sub(balance, value)
+  defp handle_cast(:error, _balance), do: {:error, "Invalid withdraw value!"}
 
   defp update_account({:error, _reason} = error, _repo, _account), do: error
 
